@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Ap1212 NSEA Air 1 Celebration</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;user-select:none;-webkit-tap-highlight-color:transparent}
+body,html{width:100%;height:100%;overflow:hidden;font-family:system-ui,sans-serif}
+.page{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px}
+.page.active{display:flex}
+@keyframes bgMove{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+@keyframes bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes fly{0%{transform:translateX(0) translateY(0)}50%{transform:translateX(60vw) translateY(-20px)}100%{transform:translateX(125vw) translateY(5px)}}
+@keyframes floatY{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+@keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}
+@keyframes dance{0%{transform:translateY(0) rotate(-5deg)}100%{transform:translateY(-10px) rotate(5deg)}}
+@keyframes trainRun{0%{left:-180px}100%{left:105vw}}
+@keyframes fall{0%{transform:translateY(-20px) rotate(0);opacity:1}100%{transform:translateY(105vh) rotate(540deg);opacity:.8}}
+@keyframes pop{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-40px)}}
+
+#page1{background:linear-gradient(135deg,#ff007f,#ff8c00,#ffd700,#00e676,#00b0ff,#7c4dff);background-size:300% 300%;animation:bgMove 7s ease infinite}
+.arc{position:absolute;top:-15%;width:130vw;height:65vw;border-radius:50%;box-shadow:0 0 0 10px #ff1744,0 0 0 20px #ff9100,0 0 0 30px #ffea00,0 0 0 40px #00e676,0 0 0 50px #00b0ff;opacity:.5;pointer-events:none}
+.uni{position:absolute;font-size:2.4rem;animation:fly 6s linear infinite;pointer-events:none}
+.castle{font-size:4rem;margin-bottom:8px;z-index:2;animation:floatY 2s infinite alternate}
+.title1{z-index:2;color:#fff;font-size:clamp(1.4rem,5.5vw,2.2rem);font-weight:900;background:rgba(25,10,50,.55);padding:16px;border-radius:20px;border:3px solid #ffd700;margin-bottom:20px;text-shadow:0 3px 8px #000}
+.btn{z-index:5;background:linear-gradient(#ffeb3b,#ff9800);color:#21094e;font-size:1.3rem;font-weight:900;padding:14px 34px;border:3px solid #fff;border-radius:50px;box-shadow:0 6px 0 #e65100;cursor:pointer;animation:bounce 1.2s infinite}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #e65100}
+
+#page2{background:linear-gradient(135deg,#ff4081,#7c4dff,#00e5ff,#ffea00);background-size:300% 300%;animation:bgMove 6s ease infinite}
+.card{background:rgba(20,8,45,.82);border:3px solid #ffd700;border-radius:22px;padding:20px 16px;width:100%;max-width:390px;color:#fff}
+.lbl{display:block;font-size:1.05rem;font-weight:800;color:#ffeb3b;margin-bottom:6px}
+.sublbl{display:block;font-size:.98rem;font-weight:800;color:#80d8ff;margin:14px 0 6px}
+.inp{width:100%;padding:12px;font-size:1.1rem;font-weight:700;border-radius:12px;border:3px solid #00e5ff;text-align:center;user-select:text;outline:none}
+.hint{font-size:.75rem;color:#e1bee7;margin-top:3px}
+.err{color:#ff5252;font-weight:800;font-size:.88rem;min-height:20px;margin:6px 0}
+
+#page3{background:radial-gradient(circle,#2c1654,#120624);color:#fff}
+.trib{font-size:clamp(1.1rem,4.5vw,1.5rem);font-weight:800;color:#ffd54f;margin-bottom:10px}
+.cnt{font-size:1rem;font-weight:700;background:rgba(255,255,255,.15);padding:6px 16px;border-radius:20px;margin-bottom:14px}
+.dframe{width:175px;height:260px;background:#3e2723;padding:12px 12px 0;border-radius:16px 16px 0 0;box-shadow:0 0 30px rgba(255,193,7,.35);cursor:pointer}
+.door{width:100%;height:100%;background:linear-gradient(145deg,#8d6e63,#5d4037);border:4px solid #4e342e;border-radius:10px 10px 0 0;position:relative;transform-origin:left;transition:transform .7s;display:flex;flex-direction:column;align-items:center;justify-content:space-around;padding:14px}
+.dpan{width:80%;height:35%;border:3px solid #4e342e;border-radius:6px}
+.knob{position:absolute;right:12px;top:50%;width:18px;height:18px;background:#fbc02d;border-radius:50%}
+.door.shake{animation:shake .25s}
+.door.open{transform:perspective(600px) rotateY(-80deg)}
+.kpop{position:fixed;font-weight:900;color:#ffeb3b;font-size:1.2rem;pointer-events:none;animation:pop .6s forwards;text-shadow:0 2px 4px #000}
+
+#page4{background:radial-gradient(circle at top,#1a237e,#4a148c,#880e4f);color:#fff;justify-content:space-between;padding:10px 10px 64px}
+.mbg{position:absolute;inset:0;pointer-events:none;z-index:1}
+.msym{position:absolute;color:rgba(255,255,255,.16);font-weight:900;font-family:serif;animation:floatY 4s infinite alternate}
+.ban{z-index:5;font-size:clamp(1rem,4.2vw,1.6rem);font-weight:900;color:#ffeb3b;background:rgba(0,0,0,.5);border:2px solid #ffd700;padding:8px 12px;border-radius:14px;width:100%;max-width:520px}
+.mid{display:flex;gap:12px;z-index:5}
+.sbox{background:rgba(255,255,255,.14);border:2px solid #ffd700;padding:8px 14px;border-radius:16px;animation:bounce 1.6s infinite}
+.stag{background:#ffd700;color:#1a0033;font-weight:900;font-size:.72rem;padding:2px 8px;border-radius:10px;margin-top:2px}
+.drow{display:flex;justify-content:space-around;width:100%;max-width:480px;z-index:5;gap:6px}
+.dcard{background:rgba(255,255,255,.15);padding:6px 8px;border-radius:12px;border:1.5px solid rgba(255,255,255,.3);animation:dance .6s infinite alternate}
+.dcard:nth-child(2){animation-delay:.2s}.dcard:nth-child(3){animation-delay:.4s}
+.dlbl{font-size:.72rem;font-weight:800;display:block;margin-top:2px}
+.gbtn{z-index:12;background:linear-gradient(90deg,#00e676,#00b0ff);color:#081229;font-size:1rem;font-weight:900;padding:10px 22px;border:3px solid #fff;border-radius:40px;cursor:pointer}
+.track{position:fixed;bottom:4px;left:0;width:100%;height:44px;border-bottom:3px dashed #ffd54f;pointer-events:none;z-index:10}
+.train{position:absolute;bottom:2px;left:-180px;font-size:2rem;white-space:nowrap;animation:trainRun 7s linear infinite}
+.drop{position:fixed;pointer-events:none;z-index:9;animation:fall linear forwards}
+.pbtn{position:fixed;top:44%;font-size:1.7rem;background:rgba(255,255,255,.2);border:2px solid #ffd700;border-radius:50%;width:42px;height:42px;z-index:12;cursor:pointer}
+
+#page5{background:linear-gradient(135deg,#1b003a,#311b92,#004d40);color:#fff;justify-content:flex-start;padding:16px 12px}
+.ghdr{font-size:1.4rem;font-weight:900;color:#ffd700;margin-bottom:6px}
+.gtot{background:#ffd700;color:#1a0033;font-weight:900;font-size:1rem;padding:6px 16px;border-radius:20px;margin-bottom:12px}
+.gbox{width:100%;max-width:440px;flex:1;overflow-y:auto;background:rgba(255,255,255,.1);border:2px solid #ffd700;border-radius:18px;padding:10px;margin-bottom:12px}
+.grow{display:flex;justify-content:space-between;background:rgba(0,0,0,.4);padding:10px 14px;border-radius:12px;margin-bottom:8px;border-left:4px solid #00e676;font-weight:800}
+</style>
+</head>
+<body>
+
+<div id="page1" class="page active">
+  <div class="arc"></div>
+  <div class="uni" style="top:10%;left:-15%">🦄✨</div>
+  <div class="uni" style="top:24%;left:-20%;animation-delay:2s">🦄🌈</div>
+  <div class="castle">🏰⚡🪄</div>
+  <h1 class="title1">Welcome to Ap1212 party for NSEA Air 1</h1>
+  <button class="btn" id="startBtn">Let's Go! 🚀</button>
+</div>
+
+<div id="page2" class="page">
+  <div class="card">
+    <label class="lbl" for="gName">Please Enter Guest Name</label>
+    <input id="gName" class="inp" type="text" maxlength="12" placeholder="Your Name">
+    <div class="hint">Max 12 characters</div>
+    <label class="sublbl" for="gAmt">Please help the Chanda Party to organise the Event successfully.</label>
+    <input id="gAmt" class="inp" type="text" inputmode="numeric" maxlength="6" placeholder="Shagan Amount (₹)">
+    <div class="hint">Max 6 numbers</div>
+    <div class="err" id="errMsg"></div>
+    <button class="btn" id="subBtn" style="font-size:1.15rem">Continue 🚪</button>
+  </div>
+</div>
+
+<div id="page3" class="page">
+  <div class="trib">This is for respect of tullu and Rasputin</div>
+  <div class="cnt" id="kStat">Tap door to knock: 0 / 12</div>
+  <div class="dframe" id="dFrame">
+    <div class="door" id="door"><div class="dpan"></div><div class="knob"></div><div class="dpan"></div></div>
+  </div>
+</div>
+
+<div id="page4" class="page">
+  <div class="mbg" id="mBg"></div>
+  <div class="ban">🎉 Ap 1212 Congratulations for becoming NSEA Air 1 🎉</div>
+  <button class="pbtn" style="left:6px" id="pLeft">🎉</button>
+  <button class="pbtn" style="right:6px" id="pRight">🎊</button>
+  <div class="mid">
+    <div class="sbox"><div style="font-size:2.8rem">🏆</div><div class="stag">NSEA AIR 1</div></div>
+    <div class="sbox"><div style="font-size:2.8rem">🎂</div><div class="stag">PARTY CAKE</div></div>
+  </div>
+  <div class="drow">
+    <div class="dcard"><svg width="52" height="58" viewBox="0 0 100 110"><circle cx="50" cy="36" r="24" fill="#fc9" stroke="#000" stroke-width="3"/><path d="M26 32Q30 10 50 12Q70 10 74 32Z" fill="#111"/><path d="M32 24Q40 18 46 24M54 24Q60 18 68 24" stroke="#000" stroke-width="5" fill="none"/><circle cx="40" cy="34" r="4" fill="#000"/><circle cx="60" cy="34" r="4" fill="#000"/><circle cx="50" cy="48" r="5" fill="#e53935"/><rect x="34" y="60" width="32" height="26" rx="6" fill="#e53935" stroke="#000" stroke-width="3"/><rect x="36" y="86" width="28" height="14" fill="#fdd835" stroke="#000" stroke-width="3"/></svg><span class="dlbl">Shinchan</span></div>
+    <div class="dcard"><svg width="52" height="58" viewBox="0 0 100 110"><circle cx="50" cy="40" r="28" fill="#039be5" stroke="#000" stroke-width="3"/><circle cx="50" cy="44" r="22" fill="#fff"/><circle cx="44" cy="29" r="4" fill="#000"/><circle cx="56" cy="29" r="4" fill="#000"/><circle cx="50" cy="37" r="5" fill="#e53935"/><path d="M35 48Q50 62 65 48" stroke="#000" stroke-width="3" fill="none"/><rect x="32" y="66" width="36" height="6" fill="#e53935"/><circle cx="50" cy="71" r="5" fill="#fdd835"/><rect x="34" y="72" width="32" height="28" rx="10" fill="#039be5" stroke="#000" stroke-width="3"/></svg><span class="dlbl">Doraemon</span></div>
+    <div class="dcard"><svg width="52" height="58" viewBox="0 0 100 110"><circle cx="50" cy="36" r="23" fill="#d7955b" stroke="#000" stroke-width="3"/><path d="M27 32Q32 10 50 12Q68 10 73 32Q62 22 50 24Q38 22 27 32Z" fill="#111"/><circle cx="50" cy="25" r="2.5" fill="#e53935"/><circle cx="41" cy="35" r="3" fill="#000"/><circle cx="59" cy="35" r="3" fill="#000"/><path d="M42 46Q50 53 58 46" stroke="#000" stroke-width="2.5" fill="none"/><rect x="33" y="59" width="34" height="24" rx="8" fill="#d7955b" stroke="#000" stroke-width="3"/><rect x="34" y="80" width="32" height="20" rx="4" fill="#ff6f00" stroke="#000" stroke-width="3"/></svg><span class="dlbl">Chhota Bheem</span></div>
+  </div>
+  <button class="gbtn" id="meetBtn">Go to meet all guests 🤝</button>
+  <div class="track"><div class="train" id="train">🚂🚃🍫🚃🍬🚃🍫</div></div>
+</div>
+
+<div id="page5" class="page">
+  <div class="ghdr">🎊 Chanda Party Guest List 🎊</div>
+  <div class="gtot" id="gTot">Total Shagan: ₹0</div>
+  <div class="gbox" id="gList"></div>
+  <button class="btn" id="backBtn" style="font-size:1rem;padding:10px 24px">⬅ Back to Party</button>
+</div>
+
+<script>
+const API='https://kvdb.io/A2x9kLp8mQr4wVz7nBc3Yt/ap1212_guests';
+let knocks=0,started=false,ctx=null;
+const go=id=>{document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active')};
+
+document.getElementById('startBtn').onclick=()=>go('page2');
+document.getElementById('backBtn').onclick=()=>go('page4');
+document.getElementById('pLeft').onclick=burst;
+document.getElementById('pRight').onclick=burst;
+document.getElementById('gAmt').oninput=function(){this.value=this.value.replace(/\D/g,'').slice(0,6)};
+
+const syms=['∑','∫','π','∞','√','Δ','θ','λ','∂','≈','≠','≤','≥','∈','∇','Ω','α','β','φ','eⁱᵖ+1=0'];
+for(let i=0;i<24;i++){
+  let s=document.createElement('span');s.className='msym';s.textContent=syms[i%syms.length];
+  s.style.left=Math.random()*90+'%';s.style.top=Math.random()*90+'%';
+  s.style.fontSize=(18+Math.random()*22)+'px';document.getElementById('mBg').appendChild(s);
+}
+
+async function loadGuests(){
+  let loc=[];try{loc=JSON.parse(localStorage.getItem('ap1212_g')||'[]')}catch(e){}
+  try{let r=await fetch(API);if(r.ok){let d=await r.json();if(Array.isArray(d))return d}}catch(e){}
+  return loc;
+}
+
+document.getElementById('subBtn').onclick=async()=>{
+  let n=document.getElementById('gName').value.trim(),a=document.getElementById('gAmt').value.trim(),e=document.getElementById('errMsg');
+  if(!n){e.textContent='Please enter Guest Name!';return}
+  if(!a){e.textContent='Please enter Shagan amount!';return}
+  e.textContent='';
+  go('page3');
+  let list=await loadGuests();
+  list.push({name:n,amount:+a});
+  try{localStorage.setItem('ap1212_g',JSON.stringify(list))}catch(x){}
+  try{await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(list)})}catch(x){}
+};
+
+function beep(f){
+  try{
+    if(!ctx)ctx=new(window.AudioContext||window.webkitAudioContext)();
+    let o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';
+    o.frequency.setValueAtTime(f,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(45,ctx.currentTime+.12);
+    g.gain.setValueAtTime(.5,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.01,ctx.currentTime+.12);
+    o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.13);
+  }catch(e){}
+}
+
+document.getElementById('dFrame').onclick=e=>{
+  if(knocks>=12)return;
+  knocks++;beep(150+knocks*10);
+  let d=document.getElementById('door');d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');
+  let p=document.createElement('div');p.className='kpop';p.textContent=knocks===12?'OPENING! 🎉':'KNOCK #'+knocks;
+  p.style.left=(e.clientX||140)-35+'px';p.style.top=(e.clientY||220)-25+'px';
+  document.body.appendChild(p);setTimeout(()=>p.remove(),600);
+  document.getElementById('kStat').textContent='Tap door to knock: '+knocks+' / 12';
+  if(knocks===12){
+    setTimeout(()=>{d.classList.add('open');setTimeout(()=>{go('page4');runParty()},700)},250);
+  }
+};
+
+function runParty(){
+  if(started)return;started=true;burst();
+  setInterval(burst,2500);
+  setInterval(()=>{
+    if(!document.getElementById('page4').classList.contains('active'))return;
+    let r=document.getElementById('train').getBoundingClientRect();
+    if(r.left>0&&r.left<innerWidth){
+      let c=document.createElement('div');c.className='drop';
+      c.textContent=['🍫','🍬','🍭','🍪'][Math.floor(Math.random()*4)];
+      c.style.left=(r.left+40)+'px';c.style.top=(r.top-8)+'px';c.style.fontSize='1.4rem';c.style.animationDuration='1.6s';
+      document.body.appendChild(c);setTimeout(()=>c.remove(),1650);
+    }
+  },450);
+}
+
+function burst(){
+  if(!document.getElementById('page4').classList.contains('active'))return;
+  for(let i=0;i<15;i++){
+    let c=document.createElement('div');c.className='drop';
+    c.textContent=['🎉','🎊','✨','⭐','🎈','🥳'][Math.floor(Math.random()*6)];
+    c.style.left=Math.random()*94+'vw';c.style.top='-20px';
+    c.style.fontSize=(16+Math.random()*14)+'px';c.style.animationDuration=(2+Math.random()*2)+'s';
+    document.body.appendChild(c);setTimeout(()=>c.remove(),4000);
+  }
+}
+
+document.getElementById('meetBtn').onclick=async()=>{
+  go('page5');
+  let box=document.getElementById('gList');box.innerHTML='<p style="margin-top:20px">Loading guests...</p>';
+  let list=await loadGuests(),tot=0;
+  if(!list.length){box.innerHTML='<p style="margin-top:20px">No guests yet!</p>';document.getElementById('gTot').textContent='Total Shagan: ₹0';return}
+  box.innerHTML='';
+  list.slice().reverse().forEach((g,i)=>{
+    let a=+g.amount||0;tot+=a;
+    let row=document.createElement('div');row.className='grow';
+    let s1=document.createElement('span');s1.textContent=(list.length-i)+'. '+g.name;
+    let s2=document.createElement('span');s2.style.color='#ffeb3b';s2.textContent='₹'+a.toLocaleString('en-IN');
+    row.append(s1,s2);box.appendChild(row);
+  });
+  document.getElementById('gTot').textContent='Total Shagan: ₹'+tot.toLocaleString('en-IN');
+};
+</script>
+</body>
+  </html>
+  
